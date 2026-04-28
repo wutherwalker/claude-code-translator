@@ -67,10 +67,6 @@ def main():
             raw_input = raw_input[1:]
         input_data = json.loads(raw_input)
 
-        # Debug logging
-        with open('d:/code/src/claude-translator/debug_output_hook.log', 'a', encoding='utf-8') as f:
-            f.write(json.dumps(input_data, ensure_ascii=False, indent=2) + "\n\n")
-
         # Check if this is an assistant message notification
         # Check if this is an idle prompt notification (meaning Claude finished responding)
         notification_type = input_data.get('notification_type', '')
@@ -105,9 +101,6 @@ def main():
                     except json.JSONDecodeError:
                         continue
         except Exception as e:
-            # Log error reading transcript
-            with open('d:/code/src/claude-translator/debug_output_error.log', 'a', encoding='utf-8') as f:
-                f.write(f"Error reading transcript: {e}\n")
             print(json.dumps({"result": "continue"}))
             return
 
@@ -146,17 +139,10 @@ def main():
                 print(json.dumps({"result": "continue"}))
                 return
 
-        # Debug logging before translation
-        with open('d:/code/src/claude-translator/debug_output_hook.log', 'a', encoding='utf-8') as f:
-            f.write(f"Translating message (len={len(last_assistant_message)}):\n{last_assistant_message}\n\n")
-
         # Translate to Chinese
-        translated, usage = client.translate(last_assistant_message, 'Chinese')
-
-        # Debug logging after translation
-        with open('d:/code/src/claude-translator/debug_output_hook.log', 'a', encoding='utf-8') as f:
-            f.write(f"Translation result (len={len(translated)}):\n{translated}\n")
-            f.write(f"Usage: {usage}\n\n")
+        translated_result = client.translate(last_assistant_message, 'Chinese')
+        translated = translated_result[0] if isinstance(translated_result, tuple) else translated_result
+        usage = translated_result[1] if isinstance(translated_result, tuple) else None
 
         # Show result in a standalone window
         show_translation_result(last_assistant_message, translated, usage)

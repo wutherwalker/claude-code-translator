@@ -1,15 +1,15 @@
 {
-  "provider": "qianwen",
+  "provider": "baidu",
   "qianwen": {
     "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
     "model": "qwen-plus",
     "api_key": "YOUR_API_KEY_HERE"
   },
   "baidu": {
-    "api_key": "your-baidu-api-key",
-    "app_id": "your-baidu-app-id"
+    "api_key": "QNOO_d7m3b9o5aqq33cr5rhj0",
+    "app_id": "20260425002601678"
   },
   "translate_output": true,
-  "interactive_input": true,
+  "interactive_input": false,
   "interactive_output": true
 }

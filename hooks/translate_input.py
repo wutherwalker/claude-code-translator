@@ -75,7 +75,8 @@ def main():
             return
 
         # Translate to English
-        translated = client.translate(prompt, 'English')
+        translated_result = client.translate(prompt, 'English')
+        translated = translated_result[0] if isinstance(translated_result, tuple) else translated_result
 
         # Check if interactive mode is enabled
         interactive_input = config.get('interactive_input', True)

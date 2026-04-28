@@ -29,8 +29,8 @@ def get_hook_commands():
     output_hook_str = str(output_hook).replace('\\', '/')
 
     return {
-        "input": f"python \"{input_hook_str}\"",
-        "output": f"python \"{output_hook_str}\""
+        "input": f"python3 \"{input_hook_str}\"",
+        "output": f"python3 \"{output_hook_str}\""
     }
 
 
